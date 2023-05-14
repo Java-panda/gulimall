@@ -1,0 +1,26 @@
+# Tomcat
+server:
+  port: 11111
+
+# Spring
+spring: 
+  application:
+    # 应用名称
+    name: gulimall-gateway
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 服务注册地址
+        server-addr: 127.0.0.1:8848
+      config:
+        # 配置中心地址
+        server-addr: 127.0.0.1:8848
+        # 配置文件格式
+        file-extension: yaml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        namespace: 9abfd135-4335-44f6-8dd7-b63f6428e1d4
