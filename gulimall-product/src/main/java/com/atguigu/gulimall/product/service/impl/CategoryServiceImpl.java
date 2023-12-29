@@ -1,8 +1,11 @@
 package com.atguigu.gulimall.product.service.impl;
 
 import com.atguigu.gulimall.common.constant.ReturnCode;
+import com.atguigu.gulimall.product.entity.AttrGroupEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -65,4 +68,32 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         return categoryEntityList;
     }
 
+    /**
+     * 获取某个三级分类的父分类路径
+     * @param catId
+     * @return
+     */
+    @Override
+    public List<Long> getCatelogPath(Long catId) {
+        List<Long> catelogPath = new ArrayList<>();
+        getCatelogPath(catelogPath,catId);
+        //反转
+        Collections.reverse(catelogPath);
+        return catelogPath;
+    }
+
+    /**
+     * 递归获取
+     * @param catelogPath
+     * @param catId
+     */
+    private void getCatelogPath(List<Long> catelogPath,Long catId) {
+        CategoryEntity categoryEntity = this.getById(catId);
+        if (categoryEntity==null) {
+            return;
+        }else {
+            catelogPath.add(categoryEntity.getCatId());
+            getCatelogPath(catelogPath,categoryEntity.getParentCid());
+        }
+    }
 }

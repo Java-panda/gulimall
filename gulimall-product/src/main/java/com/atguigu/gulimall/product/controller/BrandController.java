@@ -17,6 +17,8 @@ import com.atguigu.gulimall.common.utils.PageUtils;
 import com.atguigu.gulimall.common.utils.R;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 
 /**
  * 品牌
@@ -59,7 +61,7 @@ public class BrandController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:brand:save")
-    public R save(@RequestBody BrandEntity brand){
+    public R save(@Valid @RequestBody BrandEntity brand){
 		brandService.save(brand);
 
         return R.ok();
@@ -70,7 +72,7 @@ public class BrandController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:brand:update")
-    public R update(@RequestBody BrandEntity brand){
+    public R update(@Valid @RequestBody BrandEntity brand){
 		brandService.updateById(brand);
 
         return R.ok();

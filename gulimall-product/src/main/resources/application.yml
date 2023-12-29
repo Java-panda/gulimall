@@ -19,3 +19,4 @@ mybatis-plus:
 logging:
   level:
     com.atguigu.gulimall: debug
+debug: false
